@@ -1,11 +1,11 @@
 import React from 'react';
-import Button from './Button';
 import axios from 'axios';
+import Movie from './Movie';
 
 class App extends React.PureComponent {
   state = {
     isLoading: true,
-    movie: []
+    movies: []
   }
 
   loadingHandler = () => {
@@ -17,25 +17,43 @@ class App extends React.PureComponent {
   }
 
   getMovieList = async () => {
-    const movieList = await axios.get('https://yts.mx/api/v2/list_movies.json');
-    if(movieList.status === 200) this.loadingHandler();
-    console.log('', movieList);
+    const {
+      status,
+      data: {
+        data: {
+          movies
+        }
+      }
+    } = await axios.get('https://yts.mx/api/v2/list_movies.json?sort_by=raiting');
+    if(status === 200) this.loadingHandler();
+    this.setState(() => {
+      return {
+        movies: movies,
+        isLoading: false,
+      }
+    })
   }
 
   componentDidMount() {
     this.getMovieList();
   }
 
-
   render() {
-    const {isLoading} = this.state;
+    const {isLoading, movies} = this.state;
     return (
-      <div>
-        <div>
-          {isLoading ? 'Loading....' : 'Ready'}
-        </div>
-        <Button onClick={this.loadingHandler}/>
-      </div>
+      <section className="section">
+          {isLoading ? (
+            'Loading....'
+          ) : (
+            <div className="movies">
+              {
+                movies.map((movie) => (
+                  <Movie key={movie.id} id={movie.id} year={movie.year} title={movie.title} summary={movie.summary} poster={movie.medium_cover_image} genres={movie.genres} />
+                ))
+              }
+            </div>
+          )}
+      </section>
     )
   }
 }
