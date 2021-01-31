@@ -2,7 +2,7 @@ import React from 'react';
 import Home from './routes/Home';
 import About from './routes/About';
 import Navigation from './components/Navigation';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 
 
@@ -10,11 +10,8 @@ class App extends React.PureComponent {
 	render() {
 		return (
 			<>
-				<Router>
-				<div className="navigation">
-				<Link to="/">Home</Link>
-				<Link to="/about">About</Link>
-			</div>
+				<Router basename={process.env.PUBLIC_URL}>
+					<Navigation />
 					<Switch>
 						<Route exact path="/">
 							<Home />
