@@ -1,16 +1,24 @@
 import React from 'react';
-// import ReactDOM from 'react-dom';
+import Food from './Papapa';
 
-function Potato(props) {
-  const {name, papapa} = props;
-  const list = papapa.map((item) => {
-    return <div key={item}>{item}</div>;
-  })
+function Potato({name}) {
+	const foods = [
+		{id: 1, item: '🍟'},
+		{id: 2, item: '🍓'},
+		{id: 3, item: '🥞'}
+	];
+
+	const makeFood = (foods) => {
+		return <Food food={foods.item} key={foods.id} id={foods.id} />;
+	}
+
   return (
     <React.Fragment>
       <h1>{name}</h1>
       <div>
-        {list}
+				{
+					foods.map(makeFood)
+				}
       </div>
     </React.Fragment>
   );

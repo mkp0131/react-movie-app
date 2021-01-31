@@ -3,7 +3,7 @@ import Potato from "./Potato";
 function App() {
   return (
     <div className="App">
-      <Potato name="kkkkk" papapa={['🍟','🍓','🥞']}/>
+      <Potato name="kkkkk"/>
     </div>
   );
 }
