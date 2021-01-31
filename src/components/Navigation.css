@@ -1,0 +1,10 @@
+.navigation {
+	background: #000;
+	display: flex;
+}
+.navigation a {
+	color: #fff;
+	padding: 20px 20px;
+	line-height: 1;
+	display: block;
+}
